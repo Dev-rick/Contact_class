@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 class Contact(object):
     def __init__(self, first_name, last_name, phone_number, birth_year, email): #Hier definiert man den self! Das heisst wenn man das jetzt Ham nennen wuerde dann wuerde man im naechsten Schritt siehe 1 immer hm.first_name verwenden
         self.first_name = first_name #1. self macht dass es sich auf das Objekt bezieht wo man später first_name verwendet z.B. wenn man später diese Def bei Thomas verwendet wird dann bezieht sich first_name auf thomas
@@ -18,7 +19,7 @@ def get_list_of_names(contacts):
 
 def get_everything(contacts):
     for index, person in enumerate(contacts): # index is an order number of the contact object in the contacts list
-        print  "\naID: %s\n" \
+        print  "\nID: %s\n" \
                ">>first_name: %s\n" \
                ">>last_name: %s\n" \
                ">>phone_number: %s\n" \
@@ -60,7 +61,6 @@ def edit_contact(contacts):
         except ValueError:
             print "\nOops! please enter a valid number!\n"
             continue
-
     selected_contact = contacts[selected_id]
 
     while True:
@@ -76,7 +76,7 @@ def edit_contact(contacts):
             print "\nOops that was no number!\n"
             continue
     if selected_field == 1:
-        selected_contact.first_name = raw_input("First name:\n>> ")
+        selected_contact.first_name= raw_input("First name:\n>> ")
     elif selected_field == 2:
         selected_contact.last_name = raw_input("Last name:\n>> ")
     elif selected_field == 3:
@@ -134,19 +134,11 @@ def yes_or_no_question(Question_text):
 
 
 def main():
+    thom = Contact ( "Thomas", "Schmidt", "00432929298", 1996, "rickwarling@gmail.com")
 
+    marissa = Contact("Marissa", "Mayer", 83483204032, 1978, "marissa@yahoo.com")
 
-    thom = Contact ( #Hier entsteht ein neuer Contact object (Im Hintergrund wird die init Funktion ausgeführt.
-    first_name="Thomas", #2. Hier geben wir dem
-    last_name="Schmidt",
-    phone_number="00432929298",
-    birth_year=1996,
-    email="rickwarling@gmail.com"
-)
-
-    marissa = Contact(first_name="Marissa", last_name="Mayer", phone_number=83483204032, birth_year=1978, email="marissa@yahoo.com")
-
-    bruce = Contact(first_name="Bruce", last_name="Wayne", phone_number=902432309443, birth_year=1939, email="bruce@batman.com")
+    bruce = Contact("Bruce", "Wayne", 902432309443, 1939,"bruce@batman.com")
 
     contacts = [thom, marissa, bruce]
 
@@ -171,7 +163,7 @@ def main():
             if len(contacts) > 0:
                 delete_contact(contacts)
             elif len(contacts) == 0:
-                print "\nSorry there are no contacts to delete!\n"
+                print "Sorry there are no contacts to delete!"
         elif selection.lower() == "e":
             print "Chiao!"
             break
