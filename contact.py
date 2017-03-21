@@ -26,7 +26,7 @@ def get_everything(contacts):
                ">>email: %s\n" \
                %( index+1, person.first_name, person.last_name, person.phone_number, person.birth_year, person.email)
     if not contacts:
-        print "Sorry you don't have any contacts in your contact list"
+        print "\nSorry you don't have any contacts in your contact list!\n"
 
 
 
@@ -40,12 +40,12 @@ def add_new_contact(contacts):
                 birth_year=int(raw_input("Birth year:\n>> "))
                 break
             except ValueError:
-                print "Please enter a valid date!"
+                print "\nPlease enter a valid date!\n"
                 continue
         email=raw_input("Email:\n>> "),
         new = Contact(first_name = "%s" % first_name, last_name = "%s" % last_name, phone_number = "%s" % phone_number, birth_year = "%s" % birth_year, email = "%s" % email )
         contacts.append(new)
-        print "\n%s was successfully addded!" % new.get_full_name()
+        print "\n%s was successfully added!" % new.get_full_name()
 
 
 
@@ -53,14 +53,28 @@ def add_new_contact(contacts):
 def edit_contact(contacts):
     print "Select a number of the contact you'd like to edit:\n"
     get_list_of_names(contacts)
-    selected_id = int(raw_input("What contact would you like to edit? (enter ID number):\n>> ")) - 1
-    selected_contact = contacts[int(selected_id)]
-    selected_field = int(raw_input("Enter the number of what you want to change: "
+    while True:
+        try:
+            selected_id = int(raw_input("What contact would you like to edit? (enter ID number):\n>> ")) - 1
+            break
+        except ValueError:
+            print "\nOops! please enter a valid number!\n"
+            continue
+
+    selected_contact = contacts[selected_id]
+
+    while True:
+        try:
+            selected_field = int(raw_input("Enter the number of what you want to change: "
               "\n 1=First name\n"
               " 2=Last name\n"
               " 3=phone number\n"
               " 4=birth year\n"
               " 5=Email\n>> "))
+            break
+        except ValueError:
+            print "\nOops that was no number!\n"
+            continue
     if selected_field == 1:
         selected_contact.first_name = raw_input("First name:\n>> ")
     elif selected_field == 2:
@@ -79,12 +93,17 @@ def edit_contact(contacts):
 def delete_contact(contacts):
     print "Select the number of the contact you'd like to delete"
     get_list_of_names(contacts)
+    while True:
+        try:
+            selected_id = int(raw_input("What contact would you like to delete? (enter ID number):\n>> ")) - 1
+            break
+        except ValueError:
+            print "\nOops that was no number!\n"
+            continue
+    selected_contact = contacts[selected_id]
 
-    selected_id = int(raw_input("What contact would you like to delete? (enter ID number):\n>> ")) - 1
-    selectet_contact = contacts[selected_id]
-
-    contacts.remove(selectet_contact)
-    print "\nYour contact was remoed successfully!\n"
+    contacts.remove(selected_contact)
+    print "\nYour contact was deleted successfully!\n"
 
 
 
@@ -149,7 +168,10 @@ def main():
         elif selection.lower() == "c":
             edit_contact(contacts)
         elif selection.lower() == "d":
-            delete_contact(contacts)
+            if len(contacts) > 0:
+                delete_contact(contacts)
+            elif len(contacts) == 0:
+                print "\nSorry there are no contacts to delete!\n"
         elif selection.lower() == "e":
             print "Chiao!"
             break
